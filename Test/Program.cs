@@ -23,7 +23,6 @@ while (true)
             }
 
             make.AddPizza(pizza.BuildPizza());
-            Console.WriteLine(make.Pizzas.Count);
         }
 
     }else if (command.ToLower().Equals("view"))
