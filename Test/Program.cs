@@ -1,59 +1,41 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Test;
-
-List<Pizza> pizzas = new List<Pizza>();
-
-Console.WriteLine("Welcome to Pizzaria");
+Console.WriteLine("Welcome to Pizza");
 while (true)
 {
-    Console.Write("Enter Pizza to buy Pizza, view to view all your pizzas or quit to go to checkout: ");
-    string command = Console.ReadLine();
+    Console.WriteLine("To make a Pizza enter pizza, To see all the pizzas you made enter view and to end enter quit");
+    string command = Console.ReadLine().ToLower();
+    Maker make = new Maker();
 
-    if (string.Equals(command, "pizza", StringComparison.OrdinalIgnoreCase))
+    if (command.Equals("pizza"))
     {
-        Pizza pizza = new Pizza();
-        pizza.pizzaToppings();
-        pizzas.Add(pizza);
+        Console.Write("What size pizza would you like: ");
+        string size = Console.ReadLine().ToLower();
+        if (size.Equals("small") || size.Equals("medium") || size.Equals("large"))
+        {
+            PizzaBuilder pizza = new PizzaBuilder(size);
+            while (true)
+            {
+                Console.Write("Enter toppings or enter done to end: ");
+                string topping = Console.ReadLine();
+                if (topping.ToLower().Equals("done")) { break; }
+                pizza.AddToppings(topping);
+            }
+
+            make.AddPizza(pizza.BuildPizza());
+            Console.WriteLine(make.Pizzas.Count);
+        }
+
+    }else if (command.ToLower().Equals("view"))
+    {
+        make.GetDescription();
+        Console.WriteLine(make.Pizzas.Count);
     }
-    else if (string.Equals(command, "view", StringComparison.OrdinalIgnoreCase))
+    else if (command.ToLower().Equals("end"))
     {
-        viewPizza();
-
-    }else if(string.Equals(command, "quit", StringComparison.OrdinalIgnoreCase))
-    {
-        Console.Write("Enter coupon code: ");
+        Console.WriteLine("Enter coupon code");
         Console.ReadLine();
-        viewPizza();
-        Console.WriteLine($"Total Price: ${totalPrice()}");
+        make.GetDescription();
         break;
-
-    }
-    else
-    {
-        Console.WriteLine("Invalid Input");
     }
 }
-
-void viewPizza()
-{
-    int i = 1;
-    foreach (Pizza pizza in pizzas)
-    {
-        Console.WriteLine($"{i}.Size: {pizza.size}");
-        pizza.viewToppings();
-        Console.WriteLine($"Price: ${pizza.price}");
-        Console.WriteLine();
-        i++;
-    }
-}
-
-int totalPrice()
-{
-    int price = 0;
-    foreach(Pizza pizza in pizzas)
-    {
-        price += pizza.price;
-    }
-    return price;
-}
-
