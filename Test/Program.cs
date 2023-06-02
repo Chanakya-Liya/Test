@@ -1,11 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Test;
 Console.WriteLine("Welcome to Pizza");
+Maker make = new Maker();
 while (true)
 {
     Console.WriteLine("To make a Pizza enter pizza, To see all the pizzas you made enter view and to end enter quit");
     string command = Console.ReadLine().ToLower();
-    Maker make = new Maker();
 
     if (command.Equals("pizza"))
     {

@@ -30,7 +30,7 @@ namespace Test
         }
         public void AddToppings(string topping) 
         {
-            if(topping.ToLower().Equals("ham") || topping.ToLower().Equals("cheese") || topping.ToLower().Equals("Pepperoni"))
+            if(topping.ToLower().Equals("ham") || topping.ToLower().Equals("cheese") || topping.ToLower().Equals("pepperoni"))
             {
                 pizza.PizzaToppings(topping);
             }
